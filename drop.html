@@ -10,6 +10,123 @@
 		  alert(files);
   		//read(files);
 		};
+		for ( var i = 0; i < files.length; i++) {
+
+   var f = files[i];
+   var _fileName = f.name;
+   var _fileExtension = _fileName.split('.').pop().toUpperCase();
+
+   // check for files with no extension
+   if (_fileExtension == _fileName.toUpperCase()) {
+
+     // this must be dicom
+     _fileExtension = 'DCM';
+
+   }
+
+   var _fileSize = f.size;
+
+   // check which type of file it is
+   if (_data['volume']['extensions'].indexOf(_fileExtension) >= 0) {
+
+     _data['volume']['file'].push(f);
+
+
+   } else if (_data['colortable']['extensions'].indexOf(_fileExtension) >= 0) {
+
+     // this is a color table
+     _data['colortable']['file'].push(f);
+
+   } else if (_data['mesh']['extensions'].indexOf(_fileExtension) >= 0) {
+
+     // this is a mesh
+     _data['mesh']['file'].push(f);
+
+   } else if (_data['scalars']['extensions'].indexOf(_fileExtension) >= 0) {
+
+     // this is a scalars file
+     _data['scalars']['file'].push(f);
+
+   } else if (_data['fibers']['extensions'].indexOf(_fileExtension) >= 0) {
+
+     // this is a fibers file
+     _data['fibers']['file'].push(f);
+
+   }
+
+  }
+
+  // we now have the following data structure for the scene
+  window.console.log('New data', _data);
+
+  var _types = Object.keys(_data);
+
+  // number of total files
+  var _numberOfFiles = files.length;
+  var _numberRead = 0;
+  window.console.log('Total new files:', _numberOfFiles);
+
+  //
+  // the HTML5 File Reader callbacks
+  //
+
+  // setup callback for errors during reading
+  var errorHandler = function(e) {
+
+   console.log('Error:' + e.target.error.code);
+
+  };
+
+  // setup callback after reading
+  var loadHandler = function(type, file) {
+
+   return function(e) {
+
+     // reading complete
+     var data = e.target.result;
+
+     // might have multiple files associated
+     // attach the filedata to the right one
+     _data[type]['filedata'][_data[type]['file'].indexOf(file)] = data;
+
+     _numberRead++;
+     if (_numberRead == _numberOfFiles) {
+
+       // all done, start the parsing
+       parse(_data);
+
+     }
+
+   };
+  };
+
+
+  //
+  // start reading
+  //
+  _types.forEach(function(v) {
+
+   if (_data[v]['file'].length > 0) {
+
+     _data[v]['file'].forEach(function(u) {
+
+       var reader = new FileReader();
+
+       reader.onerror = errorHandler;
+       reader.onload = (loadHandler)(v,u); // bind the current type
+
+       // start reading this file
+       reader.readAsArrayBuffer(u);
+
+
+     });
+
+   }
+
+  });
+
+};
+
   </script>
 </head>
 <body>

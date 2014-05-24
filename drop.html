@@ -1,22 +1,20 @@
 <html>
 <head>
   <link href='http://getbootstrap.com/dist/css/bootstrap.css' rel='stylesheet' />
+  <link href='http://getbootstrap.com/dist/css/bootstrap-responsive.css' rel='stylesheet' />
 </head>
 <body>
-  <div id='content' class='container' style=''>
-		<div class='dropzone'>
-			<span>Drop files here or </span>
-				<input id='filebutton' type='file'
-					multiple onchange='selectfiles(this.files)' style='display: none;'></input>
-					<a class='btn btn-inverse btn-large' style='vertical-align: super;'
+  
+			<div class='dropzone'>
+				<span>Drop files here or </span><input id='filebutton' type='file'
+					multiple onchange='selectfiles(this.files)' style='display: none;'></input><a
+					class='btn btn-large'
 					onclick='javascript:document.getElementById("filebutton").click();'>Select
-					files</a>
-					<br />
+					files</a><br />
 				<span style='font-size: 10px'> Your data stays on your
-					computer. No upload required!</span>
-				<br />
+					computer. No upload required!</span><br />
 				<br />
 			</div>
-	</div>
+			
 </body>
 </html>

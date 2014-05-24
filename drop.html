@@ -3,58 +3,30 @@
   <link href='http://getbootstrap.com/dist/css/bootstrap.css' rel='stylesheet' />
   <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
   <script>
-		function selectfiles(files) {
+	function selectfiles(files) {
 			// now switch to the viewer
   		//switchToViewer();
 		  // .. and start the file reading
-		  alert(files);
-  		//read(files);
-		};
+		  //alert(files);
+  		  read(files);
+	}
+		
+	function read(files) {	
 		for ( var i = 0; i < files.length; i++) {
+      var f = files[i];
+      var _fileName = f.name;
+      var _fileExtension = _fileName.split('.').pop().toUpperCase();
+      // check for files with no extension
+      if (_fileExtension == _fileName.toUpperCase()) {
+       // who knows
+       _fileExtension = 'JPG';
+      }
 
-   var f = files[i];
-   var _fileName = f.name;
-   var _fileExtension = _fileName.split('.').pop().toUpperCase();
+      var _fileSize = f.size;
 
-   // check for files with no extension
-   if (_fileExtension == _fileName.toUpperCase()) {
-
-     // this must be dicom
-     _fileExtension = 'DCM';
-
-   }
-
-   var _fileSize = f.size;
-
-   // check which type of file it is
-   if (_data['volume']['extensions'].indexOf(_fileExtension) >= 0) {
-
-     _data['volume']['file'].push(f);
-
-
-   } else if (_data['colortable']['extensions'].indexOf(_fileExtension) >= 0) {
-
-     // this is a color table
-     _data['colortable']['file'].push(f);
-
-   } else if (_data['mesh']['extensions'].indexOf(_fileExtension) >= 0) {
-
-     // this is a mesh
-     _data['mesh']['file'].push(f);
-
-   } else if (_data['scalars']['extensions'].indexOf(_fileExtension) >= 0) {
-
-     // this is a scalars file
-     _data['scalars']['file'].push(f);
-
-   } else if (_data['fibers']['extensions'].indexOf(_fileExtension) >= 0) {
-
-     // this is a fibers file
-     _data['fibers']['file'].push(f);
-
-   }
-
-  }
+     _data['image']['file'].push(f);
+  	}
+	}	
 
   // we now have the following data structure for the scene
   window.console.log('New data', _data);

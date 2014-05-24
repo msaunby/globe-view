@@ -5,6 +5,19 @@
  */
 
 
+function createData() {
+
+  _data = {
+   'image': {
+     'file': [],
+     'filedata': [],
+     'extensions': ['JPG', 'PNG', 'GIF']
+   }
+  }
+
+}
+
+
 jQuery(document).ready(function() {
 
 
@@ -13,11 +26,15 @@ jQuery(document).ready(function() {
   //initBrowserWarning();
   //initDnD();
   //initExamples();
+  createData();
+
 
   ren3d = null;
   configurator = function() {
 
   };
+  
+
 
   // from http://stackoverflow.com/a/7826782/1183453
   var args = document.location.search.substring(1).split('&');

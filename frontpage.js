@@ -11,7 +11,7 @@ jQuery(document).ready(function() {
   detect_viewingmode();
 
   //initBrowserWarning();
-  initDnD();
+  //initDnD();
   //initExamples();
 
   ren3d = null;

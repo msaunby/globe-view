@@ -10,9 +10,9 @@ jQuery(document).ready(function() {
 
   detect_viewingmode();
 
-  initBrowserWarning();
+  //initBrowserWarning();
   initDnD();
-  initExamples();
+  //initExamples();
 
   ren3d = null;
   configurator = function() {

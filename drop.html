@@ -38,6 +38,38 @@
 		var _numberOfFiles = files.length;
 		var _numberRead = 0;
 		window.console.log('Total new files:', _numberOfFiles);
+		  //
+  // the HTML5 File Reader callbacks
+  //
+
+  // setup callback for errors during reading
+  var errorHandler = function(e) {
+
+   console.log('Error:' + e.target.error.code);
+
+  };
+
+  // setup callback after reading
+  var loadHandler = function(type, file) {
+
+   return function(e) {
+
+     // reading complete
+     var data = e.target.result;
+
+     // might have multiple files associated
+     // attach the filedata to the right one
+     _data[type]['filedata'][_data[type]['file'].indexOf(file)] = data;
+
+     _numberRead++;
+     if (_numberRead == _numberOfFiles) {
+
+       // all done, start the parsing
+       parse(_data);
+
+     }
+};
+
 };
 
   </script>

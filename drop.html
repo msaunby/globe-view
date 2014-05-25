@@ -7,7 +7,7 @@
   <script type='text/javascript' src='frontpage.js'></script>
 </head>
 <body>
-  <div class='container'>
+	<div class='container'>
 			<div class='dropzone'>
 				<span>Drop files here or </span><input id='filebutton' type='file'
 					multiple onchange='selectfiles(this.files)' style='display: none;'></input>
@@ -19,6 +19,9 @@
 					computer. No upload required!</span><br />
 				<br />
 			</div>
+			<div id="container"></div>
+			<script src="extras/three.min.js"> </script>
+			<script src="globe.js"> </script>
 	</div>
 </body>
 </html>

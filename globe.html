@@ -11,7 +11,7 @@
 				font-size:13px;
 				text-align:center;
 
-				background-color: #000000;
+				background-color: #F0A0C0;
 				margin: 0px;
 				overflow: hidden;
 			}
@@ -30,12 +30,8 @@
 		</style>
 	</head>
 	<body>
-
-	<div style ="height:717px">
-	  <img src="textures/lighthouse_717.jpg" />
-	</div>
-	<div id="container" style="position:relative;top:-717px">	
-		<script src="extras/three.min.js"></script>
+	<div id="container">
+		<script src="extras/three.min.js"> </script>
 		<script>
 			// Should try and simplify this further.
 			var container, stats;
@@ -61,63 +57,31 @@
 				group = new THREE.Object3D();
 				scene.add( group );
 
-				// earth
+			// earth
 
-				var earthTexture = new THREE.Texture();
-				var loader = new THREE.ImageLoader();
+			var loader = new THREE.TextureLoader();
+			loader.load( 'textures/world2d.png', function ( texture ) {
 
-				loader.addEventListener( 'load', function ( event ) {
+			var geometry = new THREE.SphereGeometry( 200, 20, 20 );
 
-					earthTexture.image = event.content;
-					earthTexture.needsUpdate = true;
+			var material = new THREE.MeshBasicMaterial( { map: texture, overdraw: 0.5 } );
+			var mesh = new THREE.Mesh( geometry, material );
+		        mesh.position.y = 190;
+			group.add( mesh );
 
-				} );
+			} );
 
-			        loader.load( 'textures/world2d.png' );
+			
+			renderer = new THREE.CanvasRenderer();
+			renderer.setSize( window.innerWidth, window.innerHeight );
+			
+			container.appendChild( renderer.domElement );
+			
+			document.addEventListener( 'mousemove', onDocumentMouseMove, false );
 
-				var geometry = new THREE.SphereGeometry( 187, 40, 40 );
-				var material = new THREE.MeshBasicMaterial( { map: earthTexture, overdraw: true } );
-
-				var mesh = new THREE.Mesh( geometry, material );
-			        mesh.position.y = 190;
-				group.add( mesh );
-
-				// shadow
-			        /*
-				var canvas = document.createElement( 'canvas' );
-				canvas.width = 128;
-				canvas.height = 128;
-
-				var context = canvas.getContext( '2d' );
-				var gradient = context.createRadialGradient( canvas.width / 2, canvas.height / 2, 0, canvas.width / 2, canvas.height / 2, canvas.width / 2 );
-				gradient.addColorStop( 0.1, 'rgba(210,210,210,1)' );
-				gradient.addColorStop( 1, 'rgba(255,255,255,1)' );
-
-				context.fillStyle = gradient;
-				context.fillRect( 0, 0, canvas.width, canvas.height );
-
-				var texture = new THREE.Texture( canvas );
-				texture.needsUpdate = true;
-
-				var geometry = new THREE.PlaneGeometry( 300, 300, 3, 3 );
-				var material = new THREE.MeshBasicMaterial( { map: texture, overdraw: true } );
-
-				var mesh = new THREE.Mesh( geometry, material );
-				mesh.position.y = - 200;
-				mesh.rotation.x = - Math.PI / 2;
-				group.add( mesh );
-			        */
-
-				renderer = new THREE.CanvasRenderer();
-				renderer.setSize( window.innerWidth, window.innerHeight );
-
-				container.appendChild( renderer.domElement );
-
-				document.addEventListener( 'mousemove', onDocumentMouseMove, false );
-
-				//
-
-				window.addEventListener( 'resize', onWindowResize, false );
+			//
+			
+			window.addEventListener( 'resize', onWindowResize, false );
 
 			}
 

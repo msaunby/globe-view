@@ -226,7 +226,7 @@ jQuery(document).ready(function() {
     fileDisplayArea.appendChild(img);
   }
 
-  reader.readAsDataURL(file); 
+  reader.readAsDataURL(_data[v]['file'][0]); 
 
      });
 

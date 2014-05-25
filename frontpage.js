@@ -210,10 +210,27 @@ jQuery(document).ready(function() {
        var reader = new FileReader();
 
        reader.onerror = errorHandler;
-       reader.onload = (loadHandler)(v,u); // bind the current type
+       //reader.onload = (loadHandler)(v,u); // bind the current type
 
        // start reading this file
-       reader.readAsArrayBuffer(u);
+       //reader.readAsArrayBuffer(u);
+	 reader.onload = function(e) {
+    fileDisplayArea.innerHTML = "";
+
+    // Create a new image.
+    var img = new Image();
+    // Set the img src property using the data URL.
+    img.src = reader.result;
+
+    // Add the image to the page.
+    fileDisplayArea.appendChild(img);
+  }
+
+  reader.readAsDataURL(file); 
+} else {
+  fileDisplayArea.innerHTML = "File not supported!";
+}
+
 
 
      });

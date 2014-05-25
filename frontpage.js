@@ -227,10 +227,10 @@ jQuery(document).ready(function() {
 function parse(data) {
 	if (data['image']['file'].length > 0) {
 		// we have an image
-		volume = new X.volume();
-		volume.file = data['image']['file'].map(function(v) {
-			return v.name;
-		});
+		//volume = new X.volume();
+		//volume.file = data['image']['file'].map(function(v) {
+		//	return v.name;
+		//});
 	}
 }
 

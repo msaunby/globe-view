@@ -227,11 +227,6 @@ jQuery(document).ready(function() {
   }
 
   reader.readAsDataURL(file); 
-} else {
-  fileDisplayArea.innerHTML = "File not supported!";
-}
-
-
 
      });
 

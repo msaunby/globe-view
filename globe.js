@@ -40,7 +40,7 @@ function init() {
     
     renderer = new THREE.CanvasRenderer();
     //renderer.setSize( window.innerWidth, window.innerHeight );
-    renderer.setSize( $(container).width(), $(container).height() );
+    renderer.setSize( 400, 400);
     container.appendChild( renderer.domElement );
     
     document.addEventListener( 'mousemove', onDocumentMouseMove, false );

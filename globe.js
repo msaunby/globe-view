@@ -41,7 +41,7 @@ function init() {
     renderer = new THREE.CanvasRenderer();
     renderer.setSize( window.innerWidth, window.innerHeight );
 			
-    container.appendChild( renderer.domElement );
+    globediv.appendChild( renderer.domElement );
     
     document.addEventListener( 'mousemove', onDocumentMouseMove, false );
     

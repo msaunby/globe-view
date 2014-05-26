@@ -13,7 +13,7 @@ animate();
 
 function init() {
     
-    container = document.getElementById( 'container' );
+    container = document.getElementById( 'globediv' );
     
     camera = new THREE.PerspectiveCamera( 60, window.innerWidth / window.innerHeight, 1, 10000 );
     camera.position.z = 1000;
@@ -41,7 +41,7 @@ function init() {
     renderer = new THREE.CanvasRenderer();
     renderer.setSize( window.innerWidth, window.innerHeight );
 			
-    globediv.appendChild( renderer.domElement );
+    container.appendChild( renderer.domElement );
     
     document.addEventListener( 'mousemove', onDocumentMouseMove, false );
     

@@ -222,6 +222,8 @@ jQuery(document).ready(function() {
     // Set the img src property using the data URL.
     img.src = reader.result;
 
+    newGlobe(reader.result);
+
     // Add the image to the page.
     fileDisplayArea.appendChild(img);
   }

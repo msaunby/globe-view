@@ -20,10 +20,10 @@ function init() {
 
     scene = new THREE.Scene();
     
-    group = new THREE.Object3D();
-    scene.add( group );
     
     // earth
+    group = new THREE.Object3D();
+    scene.add( group );
     
     var loader = new THREE.TextureLoader();
     loader.load( 'textures/world2d.png', function ( texture ) {
@@ -49,6 +49,26 @@ function init() {
     
     window.addEventListener( 'resize', onWindowResize, false );
 
+}
+
+function newGlobe(image) {
+
+    scene.remove(group);
+    
+    group = new THREE.Object3D();
+    scene.add( group );
+
+    var loader = new THREE.TextureLoader();
+    loader.load( image, function ( texture ) {
+
+            var geometry = new THREE.SphereGeometry( 200, 20, 20 );
+
+            var material = new THREE.MeshBasicMaterial( { map: texture, overdraw: 0.5 } );
+            var mesh = new THREE.Mesh( geometry, material );
+            //mesh.position.y = 190;
+            group.add( mesh );
+
+        } );
 }
 
 function onWindowResize() {
@@ -82,9 +102,9 @@ function animate() {
 
 function render() {
 
-    //camera.position.x += ( mouseX - camera.position.x ) * 0.05;
-    //camera.position.y += ( - mouseY - camera.position.y ) * 0.05;
-    //camera.lookAt( scene.position );
+    camera.position.x += ( mouseX - camera.position.x ) * 0.05;
+    camera.position.y += ( - mouseY - camera.position.y ) * 0.05;
+    camera.lookAt( scene.position );
     
     group.rotation.y -= 0.005;
 

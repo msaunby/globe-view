@@ -221,6 +221,7 @@ jQuery(document).ready(function() {
     var img = new Image();
     // Set the img src property using the data URL.
     img.src = reader.result;
+    img.style.width="100%"; // fill the enclosing DIV.
 
     newGlobe(reader.result);
 

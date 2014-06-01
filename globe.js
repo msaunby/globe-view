@@ -15,7 +15,7 @@ function init() {
     
     container = document.getElementById( 'globediv' );
     
-    camera = new THREE.PerspectiveCamera( 60, window.innerWidth / window.innerHeight, 1, 10000 );
+    camera = new THREE.PerspectiveCamera( 60, 1, 1, 10000 );
     camera.position.z = 1000;
 
     scene = new THREE.Scene();
@@ -28,19 +28,19 @@ function init() {
     var loader = new THREE.TextureLoader();
     loader.load( 'textures/world2d.png', function ( texture ) {
 	    
-	    var geometry = new THREE.SphereGeometry( 200, 20, 20 );
+	    var geometry = new THREE.SphereGeometry( 400, 20, 20 );
 	    
 	    var material = new THREE.MeshBasicMaterial( { map: texture, overdraw: 0.5 } );
 	    var mesh = new THREE.Mesh( geometry, material );
-	    mesh.position.y = 190;
+	    //mesh.position.y = 200;
 	    group.add( mesh );
 	    
 	} );
     
-    
     renderer = new THREE.CanvasRenderer();
-    //renderer.setSize( window.innerWidth, window.innerHeight );
-    renderer.setSize( 400, 400);
+    //renderer.setSize( width, height );
+    // height() will be zero, so use container width() and make it square - which works nicely.
+    renderer.setSize( jQuery(container).width(), jQuery(container).width() );
     container.appendChild( renderer.domElement );
     
     document.addEventListener( 'mousemove', onDocumentMouseMove, false );
@@ -61,7 +61,7 @@ function newGlobe(image) {
     var loader = new THREE.TextureLoader();
     loader.load( image, function ( texture ) {
 
-            var geometry = new THREE.SphereGeometry( 200, 20, 20 );
+            var geometry = new THREE.SphereGeometry( 400, 20, 20 );
 
             var material = new THREE.MeshBasicMaterial( { map: texture, overdraw: 0.5 } );
             var mesh = new THREE.Mesh( geometry, material );
@@ -76,10 +76,10 @@ function onWindowResize() {
     windowHalfX = window.innerWidth / 2;
     windowHalfY = window.innerHeight / 2;
     
-    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.aspect = 1; //window.innerWidth / window.innerHeight;
     camera.updateProjectionMatrix();
     
-    renderer.setSize( window.innerWidth, window.innerHeight );
+    //renderer.setSize( window.innerWidth, window.innerHeight );
     
 }
 

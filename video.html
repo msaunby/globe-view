@@ -1,0 +1,35 @@
+<html>
+<head>
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+	<!-- Optional theme -->
+	<link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css">
+	<link href='drop.css' rel='stylesheet' />
+</head>
+<body>
+	<!-- script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script> -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+	<!-- Latest compiled and minified JavaScript -->
+	<script src="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+	<script src="extras/three.min.js"> </script>
+	
+	<div class='container'>
+	  <video id="video" autoplay loop="loop" style="display:none">
+	    <source src="clips/MERRA+wind+and+temperature+at+300hPa-HD.mp4" type='video/mp4; codecs="avc1.42E01E, mp4a.40.2"'>
+          </video>
+	  <input id='filebutton' type='file' multiple onchange='selectfiles(this.files)' style='display: none;'></input>
+	  <button class='btn btn-large'
+		  onclick='javascript:document.getElementById("filebutton").click();'>
+	    Select file</button><br />
+	  <span style='font-size: 10px'> 
+	    Your data stays on your computer. No upload required!</span><br />
+	</div>
+	<div class='container'>
+		<div class='row'>
+			<div class='col-md-12'><div id="globediv"></div></div>
+		</div>
+	</div>
+	<script type='text/javascript' src='frontpage.js'></script>
+	<script src="video.js"> </script>
+</body>
+</html>

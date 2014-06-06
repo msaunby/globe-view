@@ -4,13 +4,9 @@ var container, stats;
 var image,imageContext;
 var camera, scene, renderer;
 var group;
-var mouseX = 0, mouseY = 0;
-
-var windowHalfX = window.innerWidth / 2;
-var windowHalfY = window.innerHeight / 2;
-
-var clip_w = 1920;
-var clip_h = 1080;
+//var mouseX = 0, mouseY = 0;
+var longitudeA = 0, latitudeA = 0;
+var texture, texture2;
 
 init();
 animate();
@@ -36,26 +32,37 @@ function init() {
     
        
     var geometry = new THREE.SphereGeometry( 1000, 30, 30 );
+    //var geometry2 = new THREE.SphereGeometry( 1010, 30, 30 );
     texture = new THREE.Texture( image );
-    var material = new THREE.MeshBasicMaterial( {  map: texture, overdraw: 0.5 } );
+    //texture.offset.set(0.5,0);
+    //texture.repeat.set(0.5,1);
+    //texture2 = new THREE.Texture( image );
+    //texture2.offset.set(0,0);
+    //texture2.repeat.set(0.5,1);
+
+    var material = new THREE.MeshBasicMaterial( {  map: texture, overdraw: 1.0 } );
+    //var material2 = new THREE.MeshBasicMaterial( {  map: texture2, overdraw: 1.0 } );
+    //material2.transparent = true;
+    //material2.opacity = 0.5;
     var mesh = new THREE.Mesh( geometry, material );
+    //var mesh2 = new THREE.Mesh( geometry2, material2 );
     group.add( mesh );
-    
+    //group.add( mesh2 );
     
 
 
     renderer = new THREE.CanvasRenderer();
-    //renderer.setSize( width, height );
-    // height() will be zero, so use container width() and make it square - which works nicely.
+    // Must now call renderer.setSize( width, height );
+    // container height will likely be zero, so use container width() and make it square - which works nicely.
     renderer.setSize( jQuery(container).width(), jQuery(container).width() );
     container.appendChild( renderer.domElement );
     
-    document.addEventListener( 'mousemove', onDocumentMouseMove, false );
     
+    //document.addEventListener( 'mousemove', onDocumentMouseMove, false );
+    //window.addEventListener( 'resize', onWindowResize, false );
 
-    
-    window.addEventListener( 'resize', onWindowResize, false );
-
+    jQuery('#xsliderA').on('slide', function(event, ui){ longitudeA = ui.value;} );
+    jQuery('#ysliderA').on('slide', function(event, ui){ latitudeA = ui.value;} );
 }
 
 function newGlobe(image) {
@@ -79,18 +86,8 @@ function newGlobe(image) {
 
 function onWindowResize() {
     
-    windowHalfX = window.innerWidth / 2;
-    windowHalfY = window.innerHeight / 2;
-    
-    camera.aspect = 1;
-    camera.updateProjectionMatrix();
-    
-}
-
-function onDocumentMouseMove( event ) {
-    
-    mouseX = ( event.clientX - windowHalfX );
-    mouseY = ( event.clientY - windowHalfY );
+    //camera.aspect = 1;
+    //camera.updateProjectionMatrix();
     
 }
 
@@ -106,14 +103,15 @@ function animate() {
 
 function render() {
 
-    group.rotation.x = mouseY * 0.01;
-    group.rotation.y = mouseX * 0.01;
+    group.rotation.x = 3.14/180.0 * latitudeA;
+    group.rotation.y = 3.14/180.0 * (longitudeA - 90.0);
 
     if ( video.readyState === video.HAVE_ENOUGH_DATA ) {
 
 	imageContext.drawImage( video, 0, 0 );
 
 	if ( texture ) texture.needsUpdate = true;
+	if ( texture2 ) texture2.needsUpdate = true;
     }
 
 

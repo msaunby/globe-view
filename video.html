@@ -7,6 +7,7 @@
 	<style>#ysliderA { margin: 10px; position: absolute; top:5%; height: 80%;}</style>
 	<style>#xsliderB { margin: 10px; position: absolute; top:0px; left: 10%; width: 80% }</style>
 	<style>#ysliderB { margin: 10px; position: absolute; top:5%; height: 80%;}</style>
+	<style>#zslider { margin: 10px;}</style>
 	<link href='drop.css' rel='stylesheet' />
 </head>
 <body>
@@ -43,14 +44,19 @@
 		    <button id="play" onclick="vidplay()">||</button>
 		    <button id="fastFwd" onclick="skip(10)">&gt;&gt;</button>
 		    <br>
+		    <span>source</span>
+		    <br>
 		    <input id="videosrc" value="http://vimeo.com/97411159/download?t=1402063228&v=260251611&s=b09aa8f95d403ca7890fb16061c6689a"></input><button id="videobut">load</button><br>
 		    <input id="videox" value="1920">x</input><input id="videoy" value="1080">y</input><button id="videores">set</button><br>
+		    <span>zoom</span>
+		    <div id="zslider"></div>
 		    <script>
 		      jQuery(function() {
 			  jQuery( "#xsliderA" ).slider({max:180,min:-180});
 			  jQuery( "#ysliderA" ).slider({orientation: 'vertical',max:90,min:-90});
 			  //jQuery( "#xsliderB" ).slider({max:180,min:-180});
 			  //jQuery( "#ysliderB" ).slider({orientation: 'vertical',max:90,min:-90});
+			  jQuery( "#zslider" ).slider({max:100,min:0});
 		        jQuery( "#videobut" ).click( function()
 		          {
 		            var video = jQuery("#video").get(0);

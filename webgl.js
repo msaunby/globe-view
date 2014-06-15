@@ -23,6 +23,13 @@ function init() {
     scene = new THREE.Scene();
     
     
+    jQuery('#xsliderA').on('slide', function(event, ui){ longitudeA = ui.value;} );
+    jQuery('#ysliderA').on('slide', function(event, ui){ latitudeA = ui.value;} );
+    jQuery('#zslider').on('slide', function(event, ui){ zoom = ui.value;} );
+}
+
+function start_play() {
+    
     // Video earth             
     image = document.createElement( 'canvas' );
     image.width = clip_w;
@@ -34,40 +41,21 @@ function init() {
     
        
     var geometry = new THREE.SphereGeometry( 800, 40, 40 );
-    //var geometry2 = new THREE.SphereGeometry( 1010, 30, 30 );
     texture = new THREE.Texture( image );
-    //texture.offset.set(0.5,0);
-    //texture.repeat.set(0.5,1);
-    //texture2 = new THREE.Texture( image );
-    //texture2.offset.set(0,0);
-    //texture2.repeat.set(0.5,1);
 
     var material = new THREE.MeshBasicMaterial( {  map: texture, overdraw: 1.0 } );
-    //var material2 = new THREE.MeshBasicMaterial( {  map: texture2, overdraw: 1.0 } );
-    //material2.transparent = true;
-    //material2.opacity = 0.5;
     var mesh = new THREE.Mesh( geometry, material );
-    //var mesh2 = new THREE.Mesh( geometry2, material2 );
     group.add( mesh );
-    //group.add( mesh2 );
-    
 
-
-    //renderer = new THREE.CanvasRenderer();
-    renderer = new THREE.WebGLRenderer();
+    renderer = new THREE.CanvasRenderer();
+    //renderer = new THREE.WebGLRenderer();
     // Must now call renderer.setSize( width, height );
     // container height will likely be zero, so use container width() and make it square - which works nicely.
     renderer.setSize( jQuery(container).width(), jQuery(container).width() );
     container.appendChild( renderer.domElement );
-    
-    
-    //document.addEventListener( 'mousemove', onDocumentMouseMove, false );
-    //window.addEventListener( 'resize', onWindowResize, false );
 
-    jQuery('#xsliderA').on('slide', function(event, ui){ longitudeA = ui.value;} );
-    jQuery('#ysliderA').on('slide', function(event, ui){ latitudeA = ui.value;} );
-    jQuery('#zslider').on('slide', function(event, ui){ zoom = ui.value;} );
 }
+
 
 function onWindowResize() {
     

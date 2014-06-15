@@ -54,6 +54,7 @@ function init() {
 
 
     renderer = new THREE.CanvasRenderer();
+    //renderer = new THREE.WebGLRenderer();
     // Must now call renderer.setSize( width, height );
     // container height will likely be zero, so use container width() and make it square - which works nicely.
     renderer.setSize( jQuery(container).width(), jQuery(container).width() );
@@ -66,25 +67,6 @@ function init() {
     jQuery('#xsliderA').on('slide', function(event, ui){ longitudeA = ui.value;} );
     jQuery('#ysliderA').on('slide', function(event, ui){ latitudeA = ui.value;} );
     jQuery('#zslider').on('slide', function(event, ui){ zoom = ui.value;} );
-}
-
-function newGlobe(image) {
-
-    scene.remove(group);
-    
-    group = new THREE.Object3D();
-    scene.add( group );
-
-    var loader = new THREE.TextureLoader();
-    loader.load( image, function ( texture ) {
-
-            var geometry = new THREE.SphereGeometry( 400, 20, 20 );
-            var material = new THREE.MeshBasicMaterial( { map: texture, overdraw: 0.5 } );
-            var mesh = new THREE.Mesh( geometry, material );
-            //mesh.position.y = 190;
-            group.add( mesh );
-
-        } );
 }
 
 function onWindowResize() {

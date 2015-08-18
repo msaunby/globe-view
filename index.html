@@ -169,11 +169,11 @@ function makePalette(){
    var context = canv.getContext('2d');
    var palette = context.createLinearGradient(0, 0, canv.width, 0);
    palette.addColorStop(0, '#000000');
-   palette.addColorStop(2.0/255.0, '#000000');
-   palette.addColorStop(3.0/255.0, '#FFFFFF');
-   palette.addColorStop(251.0/255.0, '#000000');
-   palette.addColorStop(254.0/255.0, '#1144AA');
-   palette.addColorStop(1.0, '#1144AA');
+   //palette.addColorStop(2.0/255.0, '#000000');
+   //palette.addColorStop(3.0/255.0, '#FFFFFF');
+   //palette.addColorStop(251.0/255.0, '#000000');
+   //palette.addColorStop(254.0/255.0, '#FFFFFF');
+   palette.addColorStop(1.0, '#FFFFFF');
    context.fillStyle = palette;
    context.fillRect(0, 0, canv.width, 1);
    return canv;
@@ -185,10 +185,10 @@ function makePalette(){
   function(video){
     globe_vid.video = video;
     globe_vid.texture = new THREE.VideoTexture( globe_vid.video );
-    globe_vid.texture.offset.x = 2.0/video.videoWidth;
-    globe_vid.texture.offset.y =  2.0/video.videoHeight;
-    globe_vid.texture.repeat.x = 1.0 - 2.0/video.videoWidth;
-    globe_vid.texture.repeat.y= 1.0 - 4.0/video.videoHeight;;
+    globe_vid.texture.offset.x = 0.0;
+    globe_vid.texture.offset.y =  0.0;
+    globe_vid.texture.repeat.x = 1.0;
+    globe_vid.texture.repeat.y= 1.0;
     globe_vid.texture.minFilter = THREE.NearestFilter;
     globe_vid.texture.magFilter = THREE.NearestFilter;
     globe_vid.texture.format = THREE.RGBFormat;

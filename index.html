@@ -31,8 +31,8 @@
   var width  = window.innerWidth,
   height = window.innerHeight;
   var camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 0);
-  camera.position.y = 0;
-  camera.position.z = 500;
+  camera.position.y = 400;
+  camera.position.z = -200;
   var controls = new THREE.TrackballControls(camera);
   var sphere;
   var globe_vid = {};
@@ -76,7 +76,7 @@
   'data_and_products/gebco_web_services/web_map_service/mapserv?';
 
   var basicMaterial;
-  var geometry = new THREE.SphereGeometry( 100, 100, 100 );
+  var geometry = new THREE.SphereGeometry( 500, 100, 100 );
 
 
   function loadWmsImage( url, params, cb ){
@@ -181,6 +181,16 @@ function makePalette(){
 
  var palette = makePalette();
 
+
+   loadImage( 'images/PANO_20150824_162752_small.jpg',
+   function(img){
+     wmsTexture = new THREE.ImageUtils.loadTexture(img);
+     wmsTexture.needsUpdate = true;
+     basicMaterial.map = wmsTexture;
+     scene.add( sphere );
+   });
+
+/*
  loadVideo( 'videos/co2.webm',
   function(video){
     globe_vid.video = video;
@@ -195,21 +205,28 @@ function makePalette(){
     basicMaterial.map = globe_vid.texture;
     scene.add( sphere );
   });
+*/
 
-  basicMaterial = new THREE.MeshBasicMaterial( { overdraw: 1.0 } );
+  basicMaterial = new THREE.MeshBasicMaterial( { overdraw: 1.0, side: THREE.BackSide } );
 
   sphere = new THREE.Mesh(	geometry, basicMaterial );
 
 
   var composer = new THREE.EffectComposer( renderer );
-  composer.addPass( new THREE.RenderPass( scene, camera ) );
+  var input = new THREE.RenderPass( scene, camera );
+  composer.addPass( input );
 
+/*
   var effect = new THREE.ShaderPass( THREE.PaletteShader );
   palTexture = new THREE.ImageUtils.loadTexture(palette.toDataURL());
   palTexture.magFilter = THREE.NearestFilter;
   effect.uniforms[ 'tPalette' ].value = palTexture;
   effect.renderToScreen = true;
   composer.addPass( effect );
+*/
+var effect = new THREE.ShaderPass( THREE.CopyShader );
+effect.renderToScreen = true;
+composer.addPass( effect );
 
     </script>
   </head>

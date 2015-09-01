@@ -11,7 +11,9 @@
 
   <script src="http://threejs.org/examples/js/shaders/CopyShader.js"></script>
   <script src="PaletteShader.js"></script>
+  <!--
   <script src="http://threejs.org/examples/js/shaders/RGBShiftShader.js"></script>
+  -->
 
   <script src="http://threejs.org/examples/js/postprocessing/EffectComposer.js"></script>
   <script src="http://threejs.org/examples/js/postprocessing/RenderPass.js"></script>
@@ -45,8 +47,7 @@
   function render() {
     controls.update();
     requestAnimationFrame(render);
-    //sphere.rotation.x = (23.5/180)*Math.PI;
-    sphere.rotation.y = Date.now() * 0.0001;
+    //sphere.rotation.y = Date.now() * 0.0001;
 
     /*
     if ( globe_vid.video.readyState === globe_vid.video.HAVE_ENOUGH_DATA ) {

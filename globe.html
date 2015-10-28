@@ -42,6 +42,11 @@
     overflow-x: hidden;
 }
 
+h1 {
+  font-family: 'Orbitron', sans-serif;
+  color: #fff;
+}
+
 li {
     border-top: 1px solid #ccc;
 }
@@ -355,6 +360,12 @@ function load( name ){
   loadWmsImage( wmsUrl, wmsParams, wmsLoader);
 }
 
+controls.addEventListener( 'change', function(){
+  console.log('**');
+  $('#clue').css('visibility','visible');
+  setTimeout(function(){$('#clue').css('visibility','hidden');}, 2000);
+});
+
     </script>
   </head>
   <body>
@@ -364,6 +375,12 @@ function load( name ){
         <br>
         <ul  id="list"></ul>
       </div>
+    </div>
+    <div id="clue" style="position:absolute;visibility:hidden">
+    <h1>M</h1>
+    <h1>E</h1>
+    <h1>N</h1>
+    <h1>U</h1>  
     </div>
     <div class="page" id="webgl">
     <script>

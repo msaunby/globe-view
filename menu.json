@@ -1,0 +1,518 @@
+[
+	[
+		"MOD14A1_M_FIRE",
+		"Active Fires (1 month - Terra/MODIS)"
+	],
+	[
+		"MOD14A1_E_FIRE",
+		"Active Fires (8 day - Terra/MODIS)"
+	],
+	[
+		"MOD14A1_D_FIRE",
+		"Active Fires (1 day - Terra/MODIS)"
+	],
+	[
+		"MODAL2_M_AER_OD",
+		"Aerosol Optical Thickness (1 month - Terra/MODIS)"
+	],
+	[
+		"MYDAL2_M_AER_OD",
+		"Aerosol Optical Thickness (1 month - Aqua/MODIS)"
+	],
+	[
+		"MODAL2_E_AER_OD",
+		"Aerosol Optical Thickness (8 day - Terra/MODIS)"
+	],
+	[
+		"MYDAL2_E_AER_OD",
+		"Aerosol Optical Thickness (8 day - Aqua/MODIS)"
+	],
+	[
+		"MODAL2_D_AER_OD",
+		"Aerosol Optical Thickness (1 day - Terra/MODIS)"
+	],
+	[
+		"MYDAL2_D_AER_OD",
+		"Aerosol Optical Thickness (1 day - Aqua/MODIS)"
+	],
+	[
+		"MODAL2_M_AER_RA",
+		"Aerosol Particle Radius (1 month - Terra/MODIS)"
+	],
+	[
+		"MYDAL2_M_AER_RA",
+		"Aerosol Particle Radius (1 month - Aqua/MODIS)"
+	],
+	[
+		"MODAL2_E_AER_RA",
+		"Aerosol Particle Radius (8 day - Terra/MODIS)"
+	],
+	[
+		"MYDAL2_E_AER_RA",
+		"Aerosol Particle Radius (8 day - Aqua/MODIS)"
+	],
+	[
+		"MODAL2_D_AER_RA",
+		"Aerosol Particle Radius (1 day - Terra/MODIS)"
+	],
+	[
+		"MYDAL2_D_AER_RA",
+		"Aerosol Particle Radius (1 day - Aqua/MODIS)"
+	],
+	[
+		"MCD43C3_M_BSA",
+		"Albedo (1 month)"
+	],
+	[
+		"MCD43C3_E_BSA",
+		"Albedo (16 day)"
+	],
+	[
+		"MOD_LSTD_CLIM_M",
+		"Average Land Surface Temperature [Day] (1 month)"
+	],
+	[
+		"MOD_LSTD_CLIM_E",
+		"Average Land Surface Temperature [Day] (8 day)"
+	],
+	[
+		"MOD_LSTN_CLIM_M",
+		"Average Land Surface Temperature [Night] (1 month)"
+	],
+	[
+		"MOD_LSTN_CLIM_E",
+		"Average Land Surface Temperature [Night] (8 day)"
+	],
+	[
+		"AVHRR_CLIM_M",
+		"Average Sea Surface Temperature 1985-1997 (1 month - AVHRR)"
+	],
+	[
+		"AVHRR_CLIM_W",
+		"Average Sea Surface Temperature 1985-1997 (8 day - AVHRR)"
+	],
+	[
+		"GEBCO_BATHY",
+		"Bathymetry (GEBCO)"
+	],
+	[
+		"BlueMarbleNG",
+		"Blue Marble: Next Generation"
+	],
+	[
+		"BlueMarbleNG-TB",
+		"Blue Marble: Next Generation +Topography and Bathymetry"
+	],
+	[
+		"MOP_CO_M",
+		"Carbon Monoxide (1 month - Terra/MOPITT)"
+	],
+	[
+		"MY1DMM_CHLORA",
+		"Chlorophyll Concentration (1 month - Aqua/MODIS)"
+	],
+	[
+		"MY1DMW_CHLORA",
+		"Chlorophyll Concentration (8 day - Aqua/MODIS)"
+	],
+	[
+		"MODAL2_M_CLD_FR",
+		"Cloud Fraction (1 month - Terra/MODIS)"
+	],
+	[
+		"MYDAL2_M_CLD_FR",
+		"Cloud Fraction (1 month - Aqua/MODIS)"
+	],
+	[
+		"MODAL2_E_CLD_FR",
+		"Cloud Fraction (8 day - Terra/MODIS)"
+	],
+	[
+		"MYDAL2_E_CLD_FR",
+		"Cloud Fraction (8 day - Aqua/MODIS)"
+	],
+	[
+		"MODAL2_D_CLD_FR",
+		"Cloud Fraction (1 day - Terra/MODIS)"
+	],
+	[
+		"MYDAL2_D_CLD_FR",
+		"Cloud Fraction (1 day - Aqua/MODIS)"
+	],
+	[
+		"MODAL2_M_CLD_OT",
+		"Cloud Optical Thickness (1 month - Terra/MODIS)"
+	],
+	[
+		"MYDAL2_M_CLD_OT",
+		"Cloud Optical Thickness (1 month - Aqua/MODIS)"
+	],
+	[
+		"MODAL2_E_CLD_OT",
+		"Cloud Optical Thickness (8 day - Terra/MODIS)"
+	],
+	[
+		"MYDAL2_E_CLD_OT",
+		"Cloud Optical Thickness (8 day - Aqua/MODIS)"
+	],
+	[
+		"MODAL2_D_CLD_OT",
+		"Cloud Optical Thickness (1 day - Terra/MODIS)"
+	],
+	[
+		"MYDAL2_D_CLD_OT",
+		"Cloud Optical Thickness (1 day - Aqua/MODIS)"
+	],
+	[
+		"MODAL2_M_CLD_RD",
+		"Cloud Particle Radius (1 month - Terra/MODIS)"
+	],
+	[
+		"MYDAL2_M_CLD_RD",
+		"Cloud Particle Radius (1 month - Aqua/MODIS)"
+	],
+	[
+		"MODAL2_E_CLD_RD",
+		"Cloud Particle Radius (8 day - Terra/MODIS)"
+	],
+	[
+		"MYDAL2_E_CLD_RD",
+		"Cloud Particle Radius (8 day - Aqua/MODIS)"
+	],
+	[
+		"MODAL2_D_CLD_RD",
+		"Cloud Particle Radius (1 day - Terra/MODIS)"
+	],
+	[
+		"MYDAL2_D_CLD_RD",
+		"Cloud Particle Radius (1 day - Aqua/MODIS)"
+	],
+	[
+		"MODAL2_M_CLD_WP",
+		"Cloud Water Content (1 month - Terra/MODIS)"
+	],
+	[
+		"MYDAL2_M_CLD_WP",
+		"Cloud Water Content (1 month - Aqua/MODIS)"
+	],
+	[
+		"MODAL2_E_CLD_WP",
+		"Cloud Water Content (8 day - Terra/MODIS)"
+	],
+	[
+		"MYDAL2_E_CLD_WP",
+		"Cloud Water Content (8 day - Aqua/MODIS)"
+	],
+	[
+		"MODAL2_D_CLD_WP",
+		"Cloud Water Content (1 day - Terra/MODIS)"
+	],
+	[
+		"MYDAL2_D_CLD_WP",
+		"Cloud Water Content (1 day - Aqua/MODIS)"
+	],
+	[
+		"MOD_721D_RR",
+		"False Color (1 day - Terra/MODIS Rapid Response)"
+	],
+	[
+		"MYD_721D_RR",
+		"False Color (1 day - Aqua/MODIS Rapid Response)"
+	],
+	[
+		"GISS_TA_M",
+		"Global Temperature Anomaly (1 month)"
+	],
+	[
+		"GISS_TA_Y",
+		"Global Temperature Anomaly (1 year)"
+	],
+	[
+		"ICESAT_ELEV_G",
+		"Greenland / Antarctica Elevation"
+	],
+	[
+		"MCD12C1_T1",
+		"Land Cover Classification (1 year)"
+	],
+	[
+		"MOD_LSTAD_M",
+		"Land Surface Temperature Anomaly [Day] (1 month)"
+	],
+	[
+		"MOD_LSTAD_E",
+		"Land Surface Temperature Anomaly [Day] (8 day)"
+	],
+	[
+		"MOD_LSTAD_D",
+		"Land Surface Temperature Anomaly [Day] (1 day)"
+	],
+	[
+		"MOD_LSTAN_M",
+		"Land Surface Temperature Anomaly [Night] (1 month)"
+	],
+	[
+		"MOD_LSTAN_E",
+		"Land Surface Temperature Anomaly [Night] (8 day)"
+	],
+	[
+		"MOD_LSTAN_D",
+		"Land Surface Temperature Anomaly [Night] (1 day)"
+	],
+	[
+		"MOD11C1_M_LSTDA",
+		"Land Surface Temperature [Day] (1 month - Terra/MODIS)"
+	],
+	[
+		"MOD11C1_E_LSTDA",
+		"Land Surface Temperature [Day] (8 day - Terra/MODIS)"
+	],
+	[
+		"MOD11C1_D_LSTDA",
+		"Land Surface Temperature [Day] (1 day - Terra/MODIS)"
+	],
+	[
+		"MOD11C1_M_LSTNI",
+		"Land Surface Temperature [Night] (1 month - Terra/MODIS)"
+	],
+	[
+		"MOD11C1_E_LSTNI",
+		"Land Surface Temperature [Night] (8 day - Terra/MODIS)"
+	],
+	[
+		"MOD11C1_D_LSTNI",
+		"Land Surface Temperature [Night] (1 day - Terra/MODIS)"
+	],
+	[
+		"MOD15A2_M_LAI",
+		"Leaf Area Index (1 month - Terra/MODIS)"
+	],
+	[
+		"MOD15A2_E_LAI",
+		"Leaf Area Index (8 day - Terra/MODIS)"
+	],
+	[
+		"MOD17A2_M_PSN",
+		"Net Primary Productivity (1 month - Terra/MODIS)"
+	],
+	[
+		"MOD17A2_E_PSN",
+		"Net Primary Productivity (8 day - Terra/MODIS)"
+	],
+	[
+		"CERES_NETFLUX_M",
+		"Net Radiation (1 month)"
+	],
+	[
+		"CERES_NETFLUX_E",
+		"Net Radiation (8 day)"
+	],
+	[
+		"CERES_NETFLUX_D",
+		"Net Radiation (1 day)"
+	],
+	[
+		"AURA_NO2_M",
+		"Nitrogen Dioxide (1 month)"
+	],
+	[
+		"AURA_NO2_E",
+		"Nitrogen Dioxide (8 day)"
+	],
+	[
+		"AURA_NO2_D",
+		"Nitrogen Dioxide (1 day)"
+	],
+	[
+		"CERES_LWFLUX_M",
+		"Outgoing Longwave Radiation (1 month)"
+	],
+	[
+		"CERES_LWFLUX_E",
+		"Outgoing Longwave Radiation (8 day)"
+	],
+	[
+		"CERES_LWFLUX_D",
+		"Outgoing Longwave Radiation (1 day)"
+	],
+	[
+		"AURA_OZONE_M",
+		"Ozone (1 month)"
+	],
+	[
+		"AURA_OZONE_E",
+		"Ozone (8 day)"
+	],
+	[
+		"AURA_OZONE_D",
+		"Ozone (1 day)"
+	],
+	[
+		"PermafrostNSIDC",
+		"Permafrost"
+	],
+	[
+		"SEDAC_POP",
+		"Population Density"
+	],
+	[
+		"TRMM_3B43M",
+		"Rainfall (1 month - TRMM)"
+	],
+	[
+		"TRMM_3B43D",
+		"Rainfall (1 day - TRMM)"
+	],
+	[
+		"CERES_SWFLUX_M",
+		"Reflected Shortwave Radiation (1 month)"
+	],
+	[
+		"CERES_SWFLUX_E",
+		"Reflected Shortwave Radiation (8 day)"
+	],
+	[
+		"CERES_SWFLUX_D",
+		"Reflected Shortwave Radiation (1 day)"
+	],
+	[
+		"SCSIE_W",
+		"Sea Ice and Snow Extent, Northern Hemisphere (1 week)"
+	],
+	[
+		"NISE_D",
+		"Sea Ice Concentration and Snow Extent, Global (1 day - SSM/I / DMSP)"
+	],
+	[
+		"AQUARIUS_SSS_M",
+		"Sea Surface Salinity 2011-2015 (1 month)"
+	],
+	[
+		"AQUARIUS_SSS_W",
+		"Sea Surface Salinity 2011-2015 (7 day)"
+	],
+	[
+		"AVHRR_SST_M",
+		"Sea Surface Temperature 1981-2006 (1 month - AVHRR)"
+	],
+	[
+		"AVHRR_SST_E",
+		"Sea Surface Temperature 1981-2006 (8 day - AVHRR)"
+	],
+	[
+		"MWOI_SST_M",
+		"Sea Surface Temperature 1998+ (1 month MWOI)"
+	],
+	[
+		"MWOI_SST_W",
+		"Sea Surface Temperature 1998+ (8 day MWOI)"
+	],
+	[
+		"MWOI_SST_D",
+		"Sea Surface Temperature 1998+ (1 day MWOI)"
+	],
+	[
+		"MYD28M",
+		"Sea Surface Temperature (1 month - Aqua/MODIS)"
+	],
+	[
+		"MYD28W",
+		"Sea Surface Temperature (8 day - Aqua/MODIS)"
+	],
+	[
+		"AMSRE_SSTAn_M",
+		"Sea Surface Temperature Anomaly 2002-2011 (1 month - Aqua/AMSR-E)"
+	],
+	[
+		"AMSRE_SSTAn_W",
+		"Sea Surface Temperature Anomaly 2002-2011 (8 day - Aqua/AMSR-E)"
+	],
+	[
+		"AMSRE_SSTAn_D",
+		"Sea Surface Temperature Anomaly 2002-2011 (1 day - Aqua/AMSR-E)"
+	],
+	[
+		"MOD10C1_M_SNOW",
+		"Snow Cover (1 month - Terra/MODIS)"
+	],
+	[
+		"MOD10C1_E_SNOW",
+		"Snow Cover (8 day - Terra/MODIS)"
+	],
+	[
+		"MOD10C1_D_SNOW",
+		"Snow Cover (1 day - Terra/MODIS)"
+	],
+	[
+		"SWE_M",
+		"Snow Water Equivalent (1 month - Passive Microwave, with optical)"
+	],
+	[
+		"CERES_INSOL_M",
+		"Solar Insolation (1 month)"
+	],
+	[
+		"CERES_INSOL_E",
+		"Solar Insolation (8 day)"
+	],
+	[
+		"CERES_INSOL_D",
+		"Solar Insolation (1 day)"
+	],
+	[
+		"SRTM_RAMP2_TOPO",
+		"Topography"
+	],
+	[
+		"MOD_143D_RR",
+		"True Color (1 day - Terra/MODIS Rapid Response)"
+	],
+	[
+		"MYD_143D_RR",
+		"True Color (1 day - Aqua/MODIS Rapid Response)"
+	],
+	[
+		"VIIRS_543D",
+		"True Color (1 day - NPP/VIIRS)"
+	],
+	[
+		"AURA_UVI_CLIM_M",
+		"UV Index"
+	],
+	[
+		"MOD13A2_M_NDVI",
+		"Vegetation Index [NDVI] (1 month - Terra/MODIS)"
+	],
+	[
+		"MOD13A2_E_NDVI",
+		"Vegetation Index [NDVI] (16 day - Terra/MODIS)"
+	],
+	[
+		"GRACE_LWE_M",
+		"Water Equivalent Anomaly (1 month)"
+	],
+	[
+		"MODAL2_M_SKY_WV",
+		"Water Vapor (1 month - Terra/MODIS)"
+	],
+	[
+		"MYDAL2_M_SKY_WV",
+		"Water Vapor (1 month - Aqua/MODIS)"
+	],
+	[
+		"MODAL2_E_SKY_WV",
+		"Water Vapor (8 day - Terra/MODIS)"
+	],
+	[
+		"MYDAL2_E_SKY_WV",
+		"Water Vapor (8 day - Aqua/MODIS)"
+	],
+	[
+		"MODAL2_D_SKY_WV",
+		"Water Vapor (1 day - Terra/MODIS)"
+	],
+	[
+		"MYDAL2_D_SKY_WV",
+		"Water Vapor (1 day - Aqua/MODIS)"
+	]
+]

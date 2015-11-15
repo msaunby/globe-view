@@ -11,6 +11,7 @@ var fs = require('fs'),
 var parser = new xml2js.Parser();
 
 function getCapabilities(wmsUrl, callback){
+
   request({
     url: wmsUrl,
     qs: {
@@ -21,15 +22,14 @@ function getCapabilities(wmsUrl, callback){
   });
 }
 
-function getPNG(layer, time, outname){
+function getPNG(layer, outname){
   request({
-    url: 'http://neowms.sci.gsfc.nasa.gov/wms/wms',
+    url: 'https://ogcie.iblsoft.com/ncep/gfs',
     encoding: null,  // returns body as binary buffer rather than string
     qs: {
       layers: layer,
-      time: time,
       version:'1.3.0', service:'WMS', request:'GetMap',
-      styles: 'rgb',
+      styles: 'default',
       crs: 'CRS:84',
       bbox: '-180,-90,180,90',
       width: '2048',
@@ -64,19 +64,12 @@ function parseCapabilities(data, wmsUrl){
   return ({server:wmsUrl,layers:menu})
 }
 
-function fromFile(){
- fs.readFile(__dirname + '/capabilities.xml', function(err, data) {
-     parseCapabilities(data);
- });
-}
-
-
-var wmsUrl = 'http://neowms.sci.gsfc.nasa.gov/wms/wms';
+var wmsUrl = 'https://ogcie.iblsoft.com/ncep/gfs';
 
 getCapabilities(wmsUrl, function(body, wmsUrl){
   menu = parseCapabilities(body, wmsUrl);
   //console.log(JSON.stringify(menu));
-  var wstream = fs.createWriteStream('menu.json');
+  var wstream = fs.createWriteStream('menu_gfs.json');
   wstream.write(JSON.stringify(menu, null, '\t'));
   wstream.end();
 });
@@ -92,3 +85,5 @@ dates.forEach(function(d){
 }
 );
 */
+
+//getPNG('temperature', 'temperature.png');

@@ -102,8 +102,20 @@ li {
   'data_and_products/gebco_web_services/web_map_service/mapserv?';
 
   var basicMaterial;
-  var geometry = new THREE.SphereGeometry( 100, 100, 100 );
 
+  var latNorth = 90.0;
+  var latSouth = -90.0;
+  var thetaStart = (Math.PI/180.0) * (90.0 - latNorth);
+  var thetaEnd = (Math.PI/180.0) * (90.0 - latSouth);
+  var thetaLength = thetaEnd - thetaStart;
+
+  var lonEast = 180.0;
+  var lonWest = -180.0;
+  var phiStart = (Math.PI/180.0) * (180.0 - lonEast);
+  var phiEnd = (Math.PI/180.0) * (180.0 - lonWest);
+  var phiLength = phiEnd - phiStart;
+
+  var geometry = new THREE.SphereGeometry( 100, 160, 120, phiStart, phiLength, thetaStart, thetaLength );
 
   function loadWmsImage( url, params, cb ){
     var tmpImage = new Image();
@@ -386,7 +398,8 @@ controls.addEventListener( 'change', function(){
     buildMenu();
     $.getJSON("menu.json", function(data){
       //console.dir(data);
-      data.forEach(function(el){
+      wmsUrl = data["server"] + '?';
+      data["layers"].forEach(function(el){
         console.log("MENU", el);
         $('#list').append('<li onclick="load(\'' + el[0] + '\')">' + el[1] + '</li>');
       });

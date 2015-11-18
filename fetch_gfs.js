@@ -24,12 +24,13 @@ function getCapabilities(wmsUrl, callback){
 
 function getPNG(layer, outname){
   request({
-    url: 'https://ogcie.iblsoft.com/ncep/gfs',
+    //url: 'https://ogcie.iblsoft.com/ncep/gfs',
+    url: 'http://wms-wetoffice.rhcloud.com/iblgfs',
     encoding: null,  // returns body as binary buffer rather than string
     qs: {
       layers: layer,
       version:'1.3.0', service:'WMS', request:'GetMap',
-      styles: 'default',
+      //styles: 'default',
       crs: 'CRS:84',
       bbox: '-180,-90,180,90',
       width: '2048',
@@ -86,4 +87,7 @@ dates.forEach(function(d){
 );
 */
 
-//getPNG('temperature', 'temperature.png');
+getPNG('temperature', 'temperature.png');
+getPNG('wind', 'wind.png');
+getPNG('wind-streamlines', 'wind-streamlines.png');
+getPNG('msl-pressure', 'msl-pressure.png');

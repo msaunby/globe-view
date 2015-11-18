@@ -92,8 +92,8 @@ li {
     }
     */
 
-    //renderer.render(scene, camera);
-    composer.render();
+    renderer.render(scene, camera);
+    //composer.render();
   }
 
   var landTxtrParams = {
@@ -112,21 +112,22 @@ li {
   var landTxtrUrl = 'http://www.gebco.net/' +
   'data_and_products/gebco_web_services/web_map_service/mapserv?';
 
-  var basicMaterial;
+  var sphereMaterial;
 
   var latNorth = 90.0;
   var latSouth = -90.0;
-  var lonEast = 180.0;
-  var lonWest = -180.0;
-
   var thetaStart = (Math.PI/180.0) * (90.0 - latNorth);
   var thetaEnd = (Math.PI/180.0) * (90.0 - latSouth);
   var thetaLength = thetaEnd - thetaStart;
+
+  var lonEast = 180.0;
+  var lonWest = -180.0;
   var phiStart = (Math.PI/180.0) * (180.0 - lonEast);
   var phiEnd = (Math.PI/180.0) * (180.0 - lonWest);
   var phiLength = phiEnd - phiStart;
 
   var geometry = new THREE.SphereGeometry( 100, 160, 120, phiStart, phiLength, thetaStart, thetaLength );
+
 
   function loadWmsImage( url, params, cb ){
     var tmpImage = new Image();
@@ -174,40 +175,13 @@ li {
       video.play()
     })
 
-/*
-    var tmpImage = new Image();
-    tmpImage.onload = function(){
-      var canv = document.createElement('canvas');
-      var ctx = canv.getContext('2d');
-      canv.width = this.width - 2;
-      canv.height = this.height - 4;
-      ctx.drawImage(this, -2, -2);
-      cb(canv.toDataURL());
-    }
-    tmpImage.crossOrigin = 'anonymous';
-    tmpImage.src =  url;
-*/
-  }
-
-/*
-  loadWmsImage( landTxtrUrl, landTxtrParams,
-    function(img){
-      wmsTexture = new THREE.ImageUtils.loadTexture(img);
-      wmsTexture.needsUpdate = true;
-      basicMaterial.map = wmsTexture;
-      scene.add( plane );
-      plane.updateMatrix();
-    });
-*/
-
-//var wmsUrl = 'http://neowms.sci.gsfc.nasa.gov/wms/wms?';
-var wmsUrl = 'http://wms-wetoffice.rhcloud.com/neo?';
+var wmsUrl = 'http://neowms.sci.gsfc.nasa.gov/wms/wms?';
 
 var wmsParams = {
   layers: 'BlueMarbleNG-TB',
   version:'1.3.0', service:'WMS', request:'GetMap',
-  styles: 'rgb',
   crs: 'CRS:84',
+  styles: 'rgb',
   bbox: '-180,-90,180,90',
   width: '2048',
   height: '1024',
@@ -224,51 +198,22 @@ function wmsLoader(img){
     // Function when resource is loaded
   function ( texture ) {
   // do something with the texture
-   var basicMaterial = new THREE.MeshPhongMaterial( {
+   var sphereMaterial = new THREE.MeshPhongMaterial( {
      overdraw: 1.0,
     map: texture
    } );
-   sphere = new THREE.Mesh(	geometry, basicMaterial );
+   sphere = new THREE.Mesh(	geometry, sphereMaterial );
    scene.add( sphere );
-},
-// Function called when download progresses
-function ( xhr ) {
-  console.log( (xhr.loaded / xhr.total * 100) + '% loaded' );
-},
-// Function called when download errors
-function ( xhr ) {
-  console.log( 'An error happened' );
+  },
+  // Function called when download progresses
+  function ( xhr ) {
+   console.log( (xhr.loaded / xhr.total * 100) + '% loaded' );
+  },
+  // Function called when download errors
+  function ( xhr ) {
+    console.log( 'An error happened' );
+  });
 }
-);
-}
-
-/*
-  loadImage( 'bluemarbleng.png',
-  function(img){
-    var loader = new THREE.TextureLoader();
-    loader.load(img,
-      // Function when resource is loaded
-	function ( texture ) {
-		// do something with the texture
-		 var basicMaterial = new THREE.MeshBasicMaterial( {
-       overdraw: 1.0,
-			map: texture
-		 } );
-     sphere = new THREE.Mesh(	geometry, basicMaterial );
-     scene.add( sphere );
-	},
-	// Function called when download progresses
-	function ( xhr ) {
-		console.log( (xhr.loaded / xhr.total * 100) + '% loaded' );
-	},
-	// Function called when download errors
-	function ( xhr ) {
-		console.log( 'An error happened' );
-	}
-  );
-});
-
-*/
 
  /* make a palette */
 function makePalette(){
@@ -290,43 +235,6 @@ function makePalette(){
 
  var palette = makePalette();
 
-/*
- loadVideo( 'videos/co2.webm',
-  function(video){
-    globe_vid.video = video;
-    globe_vid.texture = new THREE.VideoTexture( globe_vid.video );
-    globe_vid.texture.offset.x = 0.0;
-    globe_vid.texture.offset.y =  0.0;
-    globe_vid.texture.repeat.x = 1.0;
-    globe_vid.texture.repeat.y= 1.0;
-    globe_vid.texture.minFilter = THREE.NearestFilter;
-    globe_vid.texture.magFilter = THREE.NearestFilter;
-    globe_vid.texture.format = THREE.RGBFormat;
-    basicMaterial.map = globe_vid.texture;
-    scene.add( sphere );
-  });
-
-*/
-
-/*
-  basicMaterial = new THREE.MeshBasicMaterial( { overdraw: 1.0 } );
-
-  sphere = new THREE.Mesh(	geometry, basicMaterial );
-  */
-  var composer = new THREE.EffectComposer( renderer );
-  composer.addPass( new THREE.RenderPass( scene, camera ) );
-
-
-  /*
-  var effect = new THREE.ShaderPass( THREE.PaletteShader );
-  palTexture = new THREE.ImageUtils.loadTexture(palette.toDataURL());
-  palTexture.magFilter = THREE.NearestFilter;
-  effect.uniforms[ 'tPalette' ].value = palTexture;
-    */
-
-  var effect = new THREE.ShaderPass( THREE.CopyShader );
-  effect.renderToScreen = true;
-  composer.addPass( effect );
 
 function buildMenu(){
   var meny = Meny.create({
@@ -394,7 +302,7 @@ controls.addEventListener( 'change', function(){
   <body>
     <div class="menu">
       <div>
-        <!-- Search <input type="text"> -->
+        <div><button>data</button><button>view</button></div>
         <br>
         <ul  id="list"></ul>
       </div>
@@ -405,19 +313,12 @@ controls.addEventListener( 'change', function(){
     <h1>N</h1>
     <h1>U</h1>
     </div>
-    <div class="page" id="webgl">
+    <div class="page" id="webgl"></div>
     <script>
     buildMenu();
-    $.getJSON("menu_neo.json", function(data){
+    $.getJSON("menu_gfs.json", function(data){
       //console.dir(data);
-      wmsUrl = data["server"] + '?';
-      //delete wmsParams.styles;
-      //wmsParams.bbox = '-14,47.5,7,61';
-      //var latNorth = 61;
-      //var latSouth = 47.4;
-      //var lonEast = 7;
-      //var lonWest = -14;
-
+      //wmsUrl = data["server"] + '?';
       data["layers"].forEach(function(el){
         console.log("MENU", el);
         $('#list').append('<li onclick="load(\'' + el[0] + '\')">' + el[1] + '</li>');
@@ -427,6 +328,5 @@ controls.addEventListener( 'change', function(){
     scene.add( sphere );
     render();
     </script>
-  </div>
   </body>
   </html>

@@ -23,8 +23,6 @@
   <script src="http://threejs.org/examples/js/postprocessing/MaskPass.js"></script>
   <script src="http://threejs.org/examples/js/postprocessing/ShaderPass.js"></script>
 
-  <script src="MapMarker.js"></script>
-
   <style>
   body {
     margin: 0px;
@@ -62,9 +60,7 @@ li {
   camera.position.y = 0;
   camera.position.z = 500;
   var controls = new THREE.TrackballControls(camera);
-  var spheres = new THREE.Object3D();
-  var label;
-  scene.add( spheres );
+  var sphere;
   var globe_vid = {};
 
   var ambientLight = new THREE.AmbientLight( 0x333366 );
@@ -86,14 +82,18 @@ li {
   function render() {
     controls.update();
     requestAnimationFrame(render);
-    //spheres.rotation.y = Date.now() * 0.0001;
-    if(camera.position.distanceTo(label.position) > camera.position.distanceTo(spheres.position)) {
-      label.visible=false;
-    }else{
-      label.visible=true;
+    //sphere.rotation.x = (23.5/180)*Math.PI;
+    sphere.rotation.y = Date.now() * 0.0001;
+
+    /*
+    if ( globe_vid.video.readyState === globe_vid.video.HAVE_ENOUGH_DATA ) {
+        globe_vid.imageContext.drawImage( globe_vid.video, -2, -2 );
+        globe_vid.texture.needsUpdate = true;
     }
-    //renderer.render(scene, camera);
-    composer.render();
+    */
+
+    renderer.render(scene, camera);
+    //composer.render();
   }
 
   var landTxtrParams = {
@@ -112,30 +112,24 @@ li {
   var landTxtrUrl = 'http://www.gebco.net/' +
   'data_and_products/gebco_web_services/web_map_service/mapserv?';
 
-  var basicMaterial;
-
-  var earth_radius = 98;
-  var atmos_radius = 100;
+  var sphereMaterial;
 
   var latNorth = 90.0;
   var latSouth = -90.0;
-  var lonEast = 180.0;
-  var lonWest = -180.0;
-
   var thetaStart = (Math.PI/180.0) * (90.0 - latNorth);
   var thetaEnd = (Math.PI/180.0) * (90.0 - latSouth);
   var thetaLength = thetaEnd - thetaStart;
+
+  var lonEast = 180.0;
+  var lonWest = -180.0;
   var phiStart = (Math.PI/180.0) * (180.0 - lonEast);
   var phiEnd = (Math.PI/180.0) * (180.0 - lonWest);
   var phiLength = phiEnd - phiStart;
 
-  var geometry = new THREE.SphereGeometry( atmos_radius, 160, 120, phiStart, phiLength,
-    thetaStart, thetaLength );
-
-  var surface_geometry = new THREE.SphereGeometry( earth_radius, 160, 120, phiStart, phiLength, thetaStart, thetaLength );
+  var geometry = new THREE.SphereGeometry( 100, 160, 120, phiStart, phiLength, thetaStart, thetaLength );
 
 
-  function loadWmsImage( url, params, cb, opts ){
+  function loadWmsImage( url, params, cb ){
     var tmpImage = new Image();
     var wmsPng = url + jQuery.param( params );
     tmpImage.onload = function(){
@@ -144,7 +138,7 @@ li {
       canv.width = this.width;
       canv.height = this.height;
       ctx.drawImage(this, 0, 0);
-      cb(canv.toDataURL(), opts);
+      cb(canv.toDataURL());
     }
     tmpImage.crossOrigin = 'anonymous';
     tmpImage.src =  wmsPng;
@@ -181,15 +175,13 @@ li {
       video.play()
     })
 
-  }
-
-var wmsUrl = 'http://wms-wetoffice.rhcloud.com/neo?';
+var wmsUrl = 'http://neowms.sci.gsfc.nasa.gov/wms/wms?';
 
 var wmsParams = {
   layers: 'BlueMarbleNG-TB',
   version:'1.3.0', service:'WMS', request:'GetMap',
-  styles: 'rgb',
   crs: 'CRS:84',
+  styles: 'rgb',
   bbox: '-180,-90,180,90',
   width: '2048',
   height: '1024',
@@ -197,43 +189,31 @@ var wmsParams = {
 };
 
 
+loadWmsImage( wmsUrl, wmsParams, wmsLoader);
 
-//var label = TextSprite( "Hello", {x:0,y:0,z:earth_radius} );
-var london= {latitude:51.5072, longitude:-0.1275};
-label = TextSprite( "London", LLtoXYZ(earth_radius,london) );
-scene.add(label);
-
-var sphere;
-
-loadWmsImage( wmsUrl, wmsParams, wmsLoader, {sphere:sphere, geometry:surface_geometry});
-
-function wmsLoader(img, opts){
+function wmsLoader(img){
   var loader = new THREE.TextureLoader();
   loader.crossOrigin = 'anonymous';
   loader.load(img,
     // Function when resource is loaded
   function ( texture ) {
   // do something with the texture
-   var basicMaterial = new THREE.MeshPhongMaterial( {
+   var sphereMaterial = new THREE.MeshPhongMaterial( {
      overdraw: 1.0,
-     transparent: true,
-     map: texture
+    map: texture
    } );
-   opts.sphere = new THREE.Mesh(	opts.geometry, basicMaterial );
-   spheres.add( opts.sphere );
-   //sphere = opts.sphere;
-},
-// Function called when download progresses
-function ( xhr ) {
-  console.log( (xhr.loaded / xhr.total * 100) + '% loaded' );
-},
-// Function called when download errors
-function ( xhr ) {
-  console.log( 'An error happened' );
+   sphere = new THREE.Mesh(	geometry, sphereMaterial );
+   scene.add( sphere );
+  },
+  // Function called when download progresses
+  function ( xhr ) {
+   console.log( (xhr.loaded / xhr.total * 100) + '% loaded' );
+  },
+  // Function called when download errors
+  function ( xhr ) {
+    console.log( 'An error happened' );
+  });
 }
-);
-}
-
 
  /* make a palette */
 function makePalette(){
@@ -255,12 +235,6 @@ function makePalette(){
 
  var palette = makePalette();
 
-  var composer = new THREE.EffectComposer( renderer );
-  composer.addPass( new THREE.RenderPass( scene, camera ) );
-
-  var effect = new THREE.ShaderPass( THREE.CopyShader );
-  effect.renderToScreen = true;
-  composer.addPass( effect );
 
 function buildMenu(){
   var meny = Meny.create({
@@ -311,13 +285,11 @@ function buildMenu(){
   });
 }
 
-var outer_sphere;
-
 function load( name ){
   console.log("loading", name);
-  //spheres.remove(outer_sphere);
+  scene.remove(sphere);
   wmsParams.layers = name;
-  loadWmsImage( wmsUrl, wmsParams, wmsLoader, {sphere: outer_sphere, geometry: geometry});
+  loadWmsImage( wmsUrl, wmsParams, wmsLoader);
 }
 
 controls.addEventListener( 'change', function(){
@@ -330,7 +302,7 @@ controls.addEventListener( 'change', function(){
   <body>
     <div class="menu">
       <div>
-        <!-- Search <input type="text"> -->
+        <div><button>data</button><button>view</button></div>
         <br>
         <ul  id="list"></ul>
       </div>
@@ -341,28 +313,20 @@ controls.addEventListener( 'change', function(){
     <h1>N</h1>
     <h1>U</h1>
     </div>
-    <div class="page" id="webgl">
+    <div class="page" id="webgl"></div>
     <script>
     buildMenu();
     $.getJSON("menu_gfs.json", function(data){
       //console.dir(data);
-      wmsUrl = data["server"] + '?';
-      delete wmsParams.styles;
-      wmsParams.transparent = true;
-      //wmsParams.bbox = '-14,47.5,7,61';
-      //var latNorth = 61;
-      //var latSouth = 47.4;
-      //var lonEast = 7;
-      //var lonWest = -14;
-
+      //wmsUrl = data["server"] + '?';
       data["layers"].forEach(function(el){
         console.log("MENU", el);
         $('#list').append('<li onclick="load(\'' + el[0] + '\')">' + el[1] + '</li>');
       });
     });
     document.getElementById('webgl').appendChild(renderer.domElement);
+    scene.add( sphere );
     render();
     </script>
-  </div>
   </body>
   </html>

@@ -11,25 +11,27 @@ var fs = require('fs'),
 var parser = new xml2js.Parser();
 
 function getCapabilities(wmsUrl, callback){
+
   request({
     url: wmsUrl,
     qs: {
-      version: '1.3.0', service: 'WMS', request: 'GetCapabilities'
+      model: 'UKPPBEST'
+      ,version: '1.3.0', service: 'WMS', request: 'GetCapabilities'
     }
   }, function(err, res, body){
+          //console.log(body);
           callback(body, wmsUrl);
   });
 }
 
-function getPNG(layer, time, outname){
+function getPNG(layer, outname){
   request({
-    url: 'http://neowms.sci.gsfc.nasa.gov/wms/wms',
+    url: 'https://ogcie.iblsoft.com/ncep/gfs',
     encoding: null,  // returns body as binary buffer rather than string
     qs: {
       layers: layer,
-      time: time,
       version:'1.3.0', service:'WMS', request:'GetMap',
-      styles: 'rgb',
+      //styles: 'default',
       crs: 'CRS:84',
       bbox: '-180,-90,180,90',
       width: '2048',
@@ -50,8 +52,9 @@ function parseCapabilities(data, wmsUrl){
   parser.parseString(data, function (err, result) {
       //console.log(util.inspect(result, false, null));
       var allcap = result.WMS_Capabilities.Capability[0].Layer[0];
-      allcap.Layer.forEach(function(el){
-        el.Layer.forEach(function(l){
+      console.log(allcap);
+      allcap.Layer.forEach(function(l){
+        //el.Layer.forEach(function(l){
           menu.push([l.Name[0],l.Title[0]]);
           /*
           if (/NDVI/g.test(l.Name)){
@@ -59,38 +62,24 @@ function parseCapabilities(data, wmsUrl){
           }
           */
         });
-      });
+      //});
   });
   return ({server:wmsUrl,layers:menu})
 }
 
-function fromFile(){
- fs.readFile(__dirname + '/capabilities.xml', function(err, data) {
-     parseCapabilities(data);
- });
-}
-
-
-//var wmsUrl = 'http://neowms.sci.gsfc.nasa.gov/wms/wms';
-
-var wmsUrl = 'http://wms-wetoffice.rhcloud.com/neo';
+var wmsUrl = 'http://wms-wetoffice.rhcloud.com/bds';
 
 getCapabilities(wmsUrl, function(body, wmsUrl){
   menu = parseCapabilities(body, wmsUrl);
   //console.log(JSON.stringify(menu));
-  var wstream = fs.createWriteStream('menu_neo.json');
+  var wstream = fs.createWriteStream('menu_bds.json');
   wstream.write(JSON.stringify(menu, null, '\t'));
   wstream.end();
 });
 
-
 /*
-dates=['2014-10-01','2014-11-01','2014-12-01','2015-01-01',
-'2015-02-01','2015-03-01','2015-04-01','2015-05-01','2015-06-01',
-'2015-07-01','2015-08-01','2015-09-01'];
-
-dates.forEach(function(d){
-  getPNG('MOD13A2_M_NDVI', d, 'MOD13A2_M_NDVI_'+d+'.png');
-}
-);
+getPNG('temperature', 'temperature.png');
+getPNG('wind', 'wind.png');
+getPNG('wind-streamlines', 'wind-streamlines.png');
+getPNG('msl-pressure', 'msl-pressure.png');
 */

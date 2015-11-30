@@ -1,5 +1,5 @@
 {
-	"server": "http://neowms.sci.gsfc.nasa.gov/wms/wms",
+	"server": "http://wms-wetoffice.rhcloud.com/neo",
 	"layers": [
 		[
 			"MOD14A1_M_FIRE",

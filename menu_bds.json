@@ -1,0 +1,73 @@
+{
+	"server": "http://wms-wetoffice.rhcloud.com/bds",
+	"layers": [
+		[
+			"Lightning_Rate",
+			"Lightning Rate"
+		],
+		[
+			"Precipitation_Rate",
+			"Precipitation Rate"
+		],
+		[
+			"Hourly_Total_Precipitation",
+			"Hourly Total Precipitation"
+		],
+		[
+			"Temperature",
+			"Temperature"
+		],
+		[
+			"Total_Cloud_Cover",
+			"Total Cloud Cover"
+		],
+		[
+			"Low_Cloud_Cover",
+			"Low Cloud Cover"
+		],
+		[
+			"Medium_Cloud_Cover",
+			"Medium Cloud Cover"
+		],
+		[
+			"High_Cloud_Cover",
+			"High Cloud Cover"
+		],
+		[
+			"Cloud_base",
+			"Height of cloud base - metres"
+		],
+		[
+			"Critical_snow_rate",
+			"Critical snow rate - kgms-1"
+		],
+		[
+			"Falling_snow_level",
+			"Falling Snow Level - metres"
+		],
+		[
+			"Rain_level",
+			"Rain Level - metres"
+		],
+		[
+			"Snow_fraction",
+			"Snow Fraction"
+		],
+		[
+			"Snow_depth",
+			"Snow Depth - cm"
+		],
+		[
+			"Visibility",
+			"Visibility"
+		],
+		[
+			"Wind_Gust",
+			"Wind Gust"
+		],
+		[
+			"Wind",
+			"Wind"
+		]
+	]
+}

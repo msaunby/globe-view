@@ -1,5 +1,5 @@
 {
-	"server": "https://ogcie.iblsoft.com/ncep/gfs",
+	"server": "https://wms-wetoffice.rhcloud.com/iblgfs",
 	"layers": [
 		[
 			"temperature",

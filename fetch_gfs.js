@@ -24,7 +24,7 @@ function getCapabilities(wmsUrl, callback){
 
 function getPNG(layer, outname){
   request({
-    //url: 'https://ogcie.iblsoft.com/ncep/gfs',
+
     url: 'http://wms-wetoffice.rhcloud.com/iblgfs',
     encoding: null,  // returns body as binary buffer rather than string
     qs: {
@@ -65,7 +65,8 @@ function parseCapabilities(data, wmsUrl){
   return ({server:wmsUrl,layers:menu})
 }
 
-var wmsUrl = 'https://ogcie.iblsoft.com/ncep/gfs';
+// 'https://ogcie.iblsoft.com/ncep/gfs',
+var wmsUrl = 'https://wms-wetoffice.rhcloud.com/iblgfs';
 
 getCapabilities(wmsUrl, function(body, wmsUrl){
   menu = parseCapabilities(body, wmsUrl);
@@ -87,7 +88,7 @@ dates.forEach(function(d){
 );
 */
 
-getPNG('temperature', 'temperature.png');
-getPNG('wind', 'wind.png');
-getPNG('wind-streamlines', 'wind-streamlines.png');
-getPNG('msl-pressure', 'msl-pressure.png');
+//getPNG('temperature', 'temperature.png');
+//getPNG('wind', 'wind.png');
+//getPNG('wind-streamlines', 'wind-streamlines.png');
+//getPNG('msl-pressure', 'msl-pressure.png');

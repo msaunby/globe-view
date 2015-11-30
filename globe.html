@@ -23,6 +23,8 @@
   <script src="http://threejs.org/examples/js/postprocessing/MaskPass.js"></script>
   <script src="http://threejs.org/examples/js/postprocessing/ShaderPass.js"></script>
 
+  <script src="MapMarker.js"></script>
+
   <style>
   body {
     margin: 0px;
@@ -60,7 +62,9 @@ li {
   camera.position.y = 0;
   camera.position.z = 500;
   var controls = new THREE.TrackballControls(camera);
-  var sphere;
+  var spheres = new THREE.Object3D();
+  var label;
+  scene.add( spheres );
   var globe_vid = {};
 
   var ambientLight = new THREE.AmbientLight( 0x333366 );
@@ -82,16 +86,12 @@ li {
   function render() {
     controls.update();
     requestAnimationFrame(render);
-    //sphere.rotation.x = (23.5/180)*Math.PI;
-    sphere.rotation.y = Date.now() * 0.0001;
-
-    /*
-    if ( globe_vid.video.readyState === globe_vid.video.HAVE_ENOUGH_DATA ) {
-        globe_vid.imageContext.drawImage( globe_vid.video, -2, -2 );
-        globe_vid.texture.needsUpdate = true;
+    //spheres.rotation.y = Date.now() * 0.0001;
+    if(camera.position.distanceTo(label.position) > camera.position.distanceTo(spheres.position)) {
+      label.visible=false;
+    }else{
+      label.visible=true;
     }
-    */
-
     //renderer.render(scene, camera);
     composer.render();
   }
@@ -114,6 +114,9 @@ li {
 
   var basicMaterial;
 
+  var earth_radius = 98;
+  var atmos_radius = 100;
+
   var latNorth = 90.0;
   var latSouth = -90.0;
   var lonEast = 180.0;
@@ -126,9 +129,13 @@ li {
   var phiEnd = (Math.PI/180.0) * (180.0 - lonWest);
   var phiLength = phiEnd - phiStart;
 
-  var geometry = new THREE.SphereGeometry( 100, 160, 120, phiStart, phiLength, thetaStart, thetaLength );
+  var geometry = new THREE.SphereGeometry( atmos_radius, 160, 120, phiStart, phiLength,
+    thetaStart, thetaLength );
 
-  function loadWmsImage( url, params, cb ){
+  var surface_geometry = new THREE.SphereGeometry( earth_radius, 160, 120, phiStart, phiLength, thetaStart, thetaLength );
+
+
+  function loadWmsImage( url, params, cb, opts ){
     var tmpImage = new Image();
     var wmsPng = url + jQuery.param( params );
     tmpImage.onload = function(){
@@ -137,7 +144,7 @@ li {
       canv.width = this.width;
       canv.height = this.height;
       ctx.drawImage(this, 0, 0);
-      cb(canv.toDataURL());
+      cb(canv.toDataURL(), opts);
     }
     tmpImage.crossOrigin = 'anonymous';
     tmpImage.src =  wmsPng;
@@ -174,33 +181,8 @@ li {
       video.play()
     })
 
-/*
-    var tmpImage = new Image();
-    tmpImage.onload = function(){
-      var canv = document.createElement('canvas');
-      var ctx = canv.getContext('2d');
-      canv.width = this.width - 2;
-      canv.height = this.height - 4;
-      ctx.drawImage(this, -2, -2);
-      cb(canv.toDataURL());
-    }
-    tmpImage.crossOrigin = 'anonymous';
-    tmpImage.src =  url;
-*/
   }
 
-/*
-  loadWmsImage( landTxtrUrl, landTxtrParams,
-    function(img){
-      wmsTexture = new THREE.ImageUtils.loadTexture(img);
-      wmsTexture.needsUpdate = true;
-      basicMaterial.map = wmsTexture;
-      scene.add( plane );
-      plane.updateMatrix();
-    });
-*/
-
-//var wmsUrl = 'http://neowms.sci.gsfc.nasa.gov/wms/wms?';
 var wmsUrl = 'http://wms-wetoffice.rhcloud.com/neo?';
 
 var wmsParams = {
@@ -215,9 +197,17 @@ var wmsParams = {
 };
 
 
-loadWmsImage( wmsUrl, wmsParams, wmsLoader);
 
-function wmsLoader(img){
+//var label = TextSprite( "Hello", {x:0,y:0,z:earth_radius} );
+var london= {latitude:51.5072, longitude:-0.1275};
+label = TextSprite( "London", LLtoXYZ(earth_radius,london) );
+scene.add(label);
+
+var sphere;
+
+loadWmsImage( wmsUrl, wmsParams, wmsLoader, {sphere:sphere, geometry:surface_geometry});
+
+function wmsLoader(img, opts){
   var loader = new THREE.TextureLoader();
   loader.crossOrigin = 'anonymous';
   loader.load(img,
@@ -226,10 +216,12 @@ function wmsLoader(img){
   // do something with the texture
    var basicMaterial = new THREE.MeshPhongMaterial( {
      overdraw: 1.0,
-    map: texture
+     transparent: true,
+     map: texture
    } );
-   sphere = new THREE.Mesh(	geometry, basicMaterial );
-   scene.add( sphere );
+   opts.sphere = new THREE.Mesh(	opts.geometry, basicMaterial );
+   spheres.add( opts.sphere );
+   //sphere = opts.sphere;
 },
 // Function called when download progresses
 function ( xhr ) {
@@ -242,33 +234,6 @@ function ( xhr ) {
 );
 }
 
-/*
-  loadImage( 'bluemarbleng.png',
-  function(img){
-    var loader = new THREE.TextureLoader();
-    loader.load(img,
-      // Function when resource is loaded
-	function ( texture ) {
-		// do something with the texture
-		 var basicMaterial = new THREE.MeshBasicMaterial( {
-       overdraw: 1.0,
-			map: texture
-		 } );
-     sphere = new THREE.Mesh(	geometry, basicMaterial );
-     scene.add( sphere );
-	},
-	// Function called when download progresses
-	function ( xhr ) {
-		console.log( (xhr.loaded / xhr.total * 100) + '% loaded' );
-	},
-	// Function called when download errors
-	function ( xhr ) {
-		console.log( 'An error happened' );
-	}
-  );
-});
-
-*/
 
  /* make a palette */
 function makePalette(){
@@ -290,39 +255,8 @@ function makePalette(){
 
  var palette = makePalette();
 
-/*
- loadVideo( 'videos/co2.webm',
-  function(video){
-    globe_vid.video = video;
-    globe_vid.texture = new THREE.VideoTexture( globe_vid.video );
-    globe_vid.texture.offset.x = 0.0;
-    globe_vid.texture.offset.y =  0.0;
-    globe_vid.texture.repeat.x = 1.0;
-    globe_vid.texture.repeat.y= 1.0;
-    globe_vid.texture.minFilter = THREE.NearestFilter;
-    globe_vid.texture.magFilter = THREE.NearestFilter;
-    globe_vid.texture.format = THREE.RGBFormat;
-    basicMaterial.map = globe_vid.texture;
-    scene.add( sphere );
-  });
-
-*/
-
-/*
-  basicMaterial = new THREE.MeshBasicMaterial( { overdraw: 1.0 } );
-
-  sphere = new THREE.Mesh(	geometry, basicMaterial );
-  */
   var composer = new THREE.EffectComposer( renderer );
   composer.addPass( new THREE.RenderPass( scene, camera ) );
-
-
-  /*
-  var effect = new THREE.ShaderPass( THREE.PaletteShader );
-  palTexture = new THREE.ImageUtils.loadTexture(palette.toDataURL());
-  palTexture.magFilter = THREE.NearestFilter;
-  effect.uniforms[ 'tPalette' ].value = palTexture;
-    */
 
   var effect = new THREE.ShaderPass( THREE.CopyShader );
   effect.renderToScreen = true;
@@ -377,11 +311,13 @@ function buildMenu(){
   });
 }
 
+var outer_sphere;
+
 function load( name ){
   console.log("loading", name);
-  scene.remove(sphere);
+  //spheres.remove(outer_sphere);
   wmsParams.layers = name;
-  loadWmsImage( wmsUrl, wmsParams, wmsLoader);
+  loadWmsImage( wmsUrl, wmsParams, wmsLoader, {sphere: outer_sphere, geometry: geometry});
 }
 
 controls.addEventListener( 'change', function(){
@@ -408,10 +344,11 @@ controls.addEventListener( 'change', function(){
     <div class="page" id="webgl">
     <script>
     buildMenu();
-    $.getJSON("menu_neo.json", function(data){
+    $.getJSON("menu_gfs.json", function(data){
       //console.dir(data);
       wmsUrl = data["server"] + '?';
-      //delete wmsParams.styles;
+      delete wmsParams.styles;
+      wmsParams.transparent = true;
       //wmsParams.bbox = '-14,47.5,7,61';
       //var latNorth = 61;
       //var latSouth = 47.4;
@@ -424,7 +361,6 @@ controls.addEventListener( 'change', function(){
       });
     });
     document.getElementById('webgl').appendChild(renderer.domElement);
-    scene.add( sphere );
     render();
     </script>
   </div>
